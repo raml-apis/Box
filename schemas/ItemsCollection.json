@@ -43,7 +43,7 @@
             "type": "integer"
           },
           "path_collection": {
-            "type": "array",
+            "type": "object",
             "paths": {
               "properties": {
                 "total_count": {
@@ -67,7 +67,7 @@
                       "type": "string"
                     }
                   },
-                  "type": "object"
+                  "type": "array"
                 },
                 "description": "Array of entries.",
                 "type": "array"

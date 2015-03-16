@@ -66,7 +66,7 @@
     "status": {
       "description": "Can be active or inactive.",
       "enum": [
-        "actibe",
+        "active",
         "inactive"
       ]
     },
