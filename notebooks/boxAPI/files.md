@@ -34,7 +34,7 @@ fileTestFolderName = "Folder For File Test"
 
 // Read about the Box API at https://anypoint.mulesoft.com/apiplatform/popular/admin/#/dashboard/apis/7458/versions/7574/contracts
 
-API.createClient('client', '/apiplatform/repository/public/organizations/30/apis/7458/versions/7574/definition');
+API.createClient('client', '#REF_TAG_DEFENITION');
 
 ```
 
