@@ -84,6 +84,8 @@ notebookTestFolder = null
 
   rootFolderResponse = client.folders.folderId('0').get()
 
+  rootFolder = rootFolderResponse.body
+
   entries = rootFolderResponse.body.item_collection.entries
 
   for( var ind in entries){  
@@ -632,7 +634,7 @@ collaborationsUpdateResponse = client.collaborations.id(collaborationId).put({
 
 ```javascript
 
-assert(collaborationsUpdateResponse.body.status, 200)
+assert.equal(collaborationsUpdateResponse.body.status, 200)
 
 ```
 
@@ -672,6 +674,6 @@ exist in Box. This action cannot be undone.
 
 ```javascript
 
-// assert.eq(folderDeletePermanentlyResponse.status,200)
+// assert.equal(folderDeletePermanentlyResponse.status,200)
 
 ```

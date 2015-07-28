@@ -4,11 +4,15 @@
 	"properties": {
 		"owned_by": {
 			"description": "The user who the folder will be transferred to.",
-			"type": "string"
-		},
-		"id": {
-			"description": "The ID of the user who the folder will be transferred to.",
-			"type": "string"
+			"type": "object",
+			"required": true,
+			"properties": {
+				"id": {
+					"description": "The ID of the user who the folder will be transferred to.",
+					"type": "string",
+					"required": true
+				}
+			}
 		}
 	},
 	"required": true

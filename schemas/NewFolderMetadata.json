@@ -4,18 +4,15 @@
 	"properties": {
 		"name": {
 			"description": "The desired name for the folder.",
-			"type": "string",
-			"required": true
+			"type": "string"
 		},
 		"parent": {
 			"description": "The parent folder.",
-			"type": "object",
-			"required": true
+			"type": "object"
 		},
 		"id": {
 			"description": "The ID of the parent folder.",
-			"type": "string",
-			"required": true
+			"type": "string"
 		},
 		"description": {
 			"description": "The description of the folder.",

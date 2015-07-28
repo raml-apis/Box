@@ -4,8 +4,7 @@
 	"properties": {
 		"name": {
 			"description": "The new name for this item.",
-			"type": "string",
-			"required": true
+			"type": "string"
 		},
 		"parent": {
 			"description": "The new parent folder for this item.",

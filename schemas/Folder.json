@@ -5,11 +5,11 @@
   "properties": {
     "type": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "id": {
       "type": "string",
-      "required": false
+      "required": true
     },
     "sequence_id": {
       "type": "string",
@@ -255,7 +255,30 @@
           "type": "array",
           "required": false,
           "items": {
-            "type": "array"
+            "type": "object",
+            "required": false,
+            "properties": {
+              "type": {
+                "type": "string",
+                "required": false
+              },
+              "id": {
+                "type": "string",
+                "required": false
+              },
+              "sequence_id": {
+                "type": "object",
+                "required": false
+              },
+              "etag": {
+                "type": "object",
+                "required": false
+              },
+              "name": {
+                "type": "string",
+                "required": false
+              }
+            }
           }
         },
         "offset": {

@@ -28,6 +28,7 @@ schemas:
   - GroupMembershipEntry: !include schemas/GroupMembershipEntry.json
   - Task_assignmentUpdate: !include schemas/AssignmentUpdate.json
   - NewItem: !include schemas/NewItem.json
+  - CopyItem: !include schemas/CopyItem.json
   - FileVersionPromote: !include schemas/FileVersionPromote.json
   - NewEmailAlias: !include schemas/NewEmailAlias.json
   - NewFolder: !include schemas/NewItem.json
@@ -120,8 +121,8 @@ securedBy: [ oauth_2_0 ]
         will need to be included in the request.
       body: 
         application/json: 
-          schema: NewFolder
-          example: !include examples/NewItem-example.json
+          schema: CopyItem
+          example: !include examples/CopyItem-example.json
       responses: 
         201: 
           description: Item was succesfully created.
@@ -156,8 +157,8 @@ securedBy: [ oauth_2_0 ]
           of the folder will not be altered.
         body: 
           application/json: 
-            schema: NewItem
-            example: !include examples/NewItem-example.json
+            schema: CopyItem
+            example: !include examples/CopyItem-example.json
         responses: 
           200: 
             body: 
@@ -257,8 +258,8 @@ securedBy: [ oauth_2_0 ]
       need to be included in the request.
     body: 
       application/json: 
-        schema: NewItem
-        example: !include examples/NewItem-example.json
+        schema: CopyItem
+        example: !include examples/CopyItem-example.json
     responses: 
       201: 
         body: 
@@ -313,8 +314,8 @@ securedBy: [ oauth_2_0 ]
         the file will not be altered.
       body: 
         application/json: 
-          schema: NewItem
-          example: !include examples/NewItem-example.json
+          schema: CopyItem
+          example: !include examples/CopyItem-example.json
       responses: 
         200: 
           body: 
@@ -353,10 +354,10 @@ securedBy: [ oauth_2_0 ]
             application/json: 
               schema: TaskSummariesCollection
               example: !include examples/TaskSummariesCollection-example.json
-  /thumbnail{extension}: 
+  /thumbnail{mediaTypeExtension}:
     type: standardResponse
     uriParameters: 
-      extension: 
+      mediaTypeExtension:
         description: |
           Generated file's extension. Currently thumbnails are only available in .png format
           and will only be generated for image file formats.
@@ -497,8 +498,8 @@ securedBy: [ oauth_2_0 ]
       200: 
         body: 
           application/json: 
-            schema: CommentsCollection
-            example: !include examples/CommentsCollection-example.json
+            schema: Comment
+            example: !include examples/Comment-example.json
   /{commentId}: 
     type: { collectionItem: { item: Comment } }
     uriParameters: 
@@ -568,6 +569,7 @@ securedBy: [ oauth_2_0 ]
       description: Used to edit an existing collaboration. Descriptions of the various roles can be found here.
       body:
         application/json:
+          schema: Collaboration
           example: !include examples/Collaboration-example.json
       responses: 
         200:        
