@@ -1,0 +1,1965 @@
+#%RAML 1.0 Library
+types:
+  User:
+    type: object
+    properties:
+      type:
+        description: For users is 'user'.
+        type: string
+      id:
+        description: A unique string identifying this user.
+        type: string
+      name:
+        description: The name of this user.
+        type: string
+      login:
+        description: The email address this user uses to login.
+        type: string
+      created_at:
+        type: string
+        description: The time this user was created.
+      modified_at:
+        type: string
+        description: The time this user was last modified.
+      role:
+        description: This user's enterprise role.
+        enum:
+          - admin
+          - coadmin
+          - user
+      language:
+        description: The language of this user. ISO 639-1 Language Code.
+        type: string
+        maxLength: 2
+      space_amount:
+        description: The user's total available space amount in bytes.
+        type: integer
+      space_used?:
+        description: The amount of space in use by the user.
+        type: integer
+      max_upload_size:
+        description: The maximum individual file size in bytes this user can have.
+        type: integer
+      tracking_codes?:
+        type: array
+        description: An array of key/value pairs set by the user's admin.
+      can_see_managed_users:
+        description: Whether this user can see other enterprise users in its contact list.
+        type: boolean
+      is_sync_enabled:
+        description: Whether or not this user can use Box Sync
+        type: boolean
+      status:
+        description: Can be active or inactive.
+        enum:
+          - active
+          - inactive
+      job_title?:
+        description: The user's job title.
+        type: string
+      phone:
+        description: The user's phone number.
+        type: string
+      address:
+        description: The user's address.
+        type: string
+      avatar_url:
+        description: URL of this user's avatar image.
+        type: string
+      is_exempt_from_device_limits?:
+        description: Whether to exempt this user from Enterprise device limits.
+        type: boolean
+      is_exempt_from_login_verification?:
+        description: Whether or not this user must use two-factor authentication.
+        type: boolean
+      enterprise?:
+        type: object
+        description: Mini representation of this user's enterprise including the ID of its enterprise
+        properties:
+          type:
+            type: string
+          id:
+            type: string
+          name:
+            type: string
+    example:
+      type: user
+      id: 187273718
+      name: Ned Stark
+      login: eddard@box.com
+      created_at: 2012-11-15T16:34:28-08:00
+      modified_at: 2012-11-15T16:34:29-08:00
+      role: user
+      language: en
+      space_amount: 5368709120
+      space_used: 0
+      max_upload_size: 2147483648
+      tracking_codes: []
+      can_see_managed_users: true
+      is_sync_enabled: true
+      status: active
+      job_title:
+      phone: 555-555-5555
+      address: 555 Box Lane
+      avatar_url: https://www.box.com/api/avatar/large/187273718
+      is_exempt_from_device_limits: false
+      is_exempt_from_login_verification: false
+  UpdateMembership:
+    type: object
+    properties:
+      role?: string
+    example:
+      role: submaster
+  Comment:
+    type: object
+    properties:
+      type:
+        description: For comments is 'comment'.
+        type: string
+      id:
+        description: A unique string identifying this comment.
+        type: string
+      is_reply_comment:
+        description: Whether or not this comment is a reply to another comment.
+        type: boolean
+      message:
+        description: The comment text that the user typed.
+        type: string
+      tagged_message?:
+        description: The string representing the comment text with @mentions included.
+        type: string
+      created_by:
+        type: object
+        description: A mini user object representing the author of the comment.
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+      created_at:
+        type: string
+        description: The time this comment was created.
+      item:
+        type: object
+        description: The object this comment was placed on.
+        properties:
+          id: string
+          type: string
+      modified_at:
+        type: string
+        description: The time this comment was last modified.
+    example:
+      type: comment
+      id: 191969
+      is_reply_comment: false
+      message: These tigers are cool!
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      created_at: 2012-12-12T11:25:01-08:00
+      item:
+        id: 5000948880
+        type: file
+      modified_at: 2012-12-12T11:25:01-08:00
+  CommentsCollection:
+    type: object
+    properties:
+      total_count?: number
+      offset?: number
+      limit?: number
+      entries?: Comment[]
+    example:
+      total_count: 1
+      offset: 0
+      limit: 100
+      entries:
+        - type: comment
+          id: 191969
+          is_reply_comment: false
+          message: These tigers are cool!
+          created_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          created_at: 2012-12-12T11:25:01-08:00
+          item:
+            id: 5000948880
+            type: file
+          modified_at: 2012-12-12T11:25:01-08:00
+  NewComment:
+    type: object
+    properties:
+      item:
+        description: The item that this comment will be placed on.
+        type: object
+      type?:
+        description: The type of the item that this comment will be placed on.
+        type: string
+      id?:
+        description: The id of the item that this comment will be placed on.
+        type: string
+      message:
+        description: The text body of the comment.
+        type: string
+    example:
+      message: These tigers are cool!
+      item:
+        id: 5000948880
+        type: file
+  EmailAlias:
+    type: object
+    properties:
+      type: string
+      id: string
+      is_confirmed: boolean
+      email: string
+    example:
+      type : email_alias
+      id : 1234
+      is_confirmed : true
+      email : dglover2@box.com
+  NewCollaboration:
+    type: object
+    properties:
+      accessible_by?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      role?: string
+      item?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+    example:
+      item :
+        id : FOLDER_ID
+        type : folder
+      accessible_by :
+        id : USER_ID
+      role : editor
+  EmailAliasesCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: EmailAlias[]
+    example:
+      total_count: 1
+      entries:
+        - type : email_alias
+          id : 1234
+          is_confirmed : true
+          email : dglover2@box.com
+  NewGroup:
+    type: object
+    properties:
+      name: string
+    example:
+      name: Collaborators
+  Collaboration:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      created_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      created_at?: string
+      modified_at?: string
+      expires_at?: string
+      status?: string
+      accessible_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      role?: string
+      acknowledged_at?: string
+      item?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          sequence_id?: string
+          etag?: string
+          name?: string
+    example:
+      type: collaboration
+      id: 791293
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      created_at: 2012-12-12T10:54:37-08:00
+      modified_at: 2012-12-12T11:30:43-08:00
+      expires_at: null
+      status: accepted
+      accessible_by:
+        type: user
+        id: 18203124
+        name: sean
+        login: sean+test@box.com
+      role: editor
+      acknowledged_at: 2012-12-12T11:30:43-08:00
+      item:
+        type: folder
+        id: 11446500
+        sequence_id: 0
+        etag: 0
+        name: Shared Pictures
+  CollaborationsCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: Collaboration[]
+    example:
+      total_count: 1
+      entries:
+        - type: collaboration
+          id: 791293
+          created_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          created_at: 2012-12-12T10:54:37-08:00
+          modified_at: 2012-12-12T11:30:43-08:00
+          expires_at: null
+          status: accepted
+          accessible_by:
+            type: user
+            id: 18203124
+            name: sean
+            login: sean+test@box.com
+          role: editor
+          acknowledged_at: 2012-12-12T11:30:43-08:00
+          item:
+            type: folder
+            id: 11446500
+            sequence_id: 0
+            etag: 0
+            name: Shared Pictures
+  Group:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      name?: string
+      created_at?: string
+      modified_at?: string
+    example:
+      type: group
+      id: 119720
+      name: framily
+      created_at: 2013-05-16T15:27:57-07:00
+      modified_at: 2013-05-16T15:27:57-07:00
+  NewItem:
+    type: object
+    properties:
+      name:
+        description: The new name for this item.
+        type: string
+      parent:
+        description: The new parent folder for this item.
+        type: object
+        properties:
+          id: string
+      id?:
+        description: The id of the new parent folder.
+        type: string
+    example:
+      name: New Folder
+      parent:
+        id : FOLDER_ID
+  NewGroupMembership:
+    type: object
+    properties:
+      user?:
+        type : object
+        properties :
+          id?: string
+      group?:
+        type : object
+        properties :
+          id?: string
+    example:
+      user :
+        id : 1992432
+      group :
+        id : 1992432
+  GroupMembershipEntry:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      user?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      group?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          name?: string
+      role?: string
+      created_at?: string
+      modified_at?: string
+    example:
+      type : group_membership
+      id : 1560354
+      user :
+        type : user
+        id : 13130906
+        name : Alice
+        login : alice@gmail.com
+      group :
+        type : group
+        id : 119720
+        name : family
+      role : member
+  GroupMemberships:
+    type: object
+    properties:
+      total_count?: number
+      entries?: GroupMembershipEntry[]
+      offset?: number
+      limit?: number
+    example:
+      total_count : 2
+      entries :
+        - type : group_membership
+          id : 1560354
+          user :
+            type : user
+            id : 13130906
+            name : Alice
+            login : alice@gmail.com
+          group :
+            type : group
+            id : 119720
+            name : family
+          role : member
+        - type : group_membership
+          id : 1560356
+          user :
+            type : user
+            id : 192633962
+            name : rabbit
+            login : rabbit@gmail.com
+          group :
+            type : group
+            id : 119720
+            name : family
+          role : member
+      offset : 0
+      limit : 100
+  MiniGroupItem:
+    type: object
+    properties:
+      type :
+        type : string
+        required : false
+      id :
+        type : string
+        required : false
+      name :
+        type : string
+        required : false
+    example:
+      type : group
+      id : 1786931
+      name : friends
+  MiniGroups:
+    type: object
+    properties:
+      total_count?: number
+      entries : MiniGroupItem[]
+      limit?: number
+      offset?: number
+    example:
+      total_count : 1
+      entries :
+        - type : group
+          id : 1786931
+          name : friends
+      limit : 100
+      offset : 0
+  NewTask:
+    type: object
+    properties:
+      item:
+        description: The item this task is for.
+        type: object
+        properties:
+          type:
+            description: The type of the item this task is for (currently only 'file' is supported).
+            type: string
+          id:
+            description: The ID of the item this task is for.
+            type: string
+      action:
+        description: The action the task assignee will be prompted to do. Must be 'review'.
+        type: string
+      message?:
+        description: An optional message to include with the task.
+        type: string
+      due_at?:
+        description: The day at which this task is due.
+        type: string
+    example:
+      item :
+        type : file
+        id : FILE_ID
+      action : review
+  TaskAssignment:
+    type: object
+    properties:
+      type: string
+      id: string
+      item:
+        properties:
+          type: string
+          id: string
+          sequence_id: string
+          etag: string
+          sha1: string
+          name: string
+        type: object
+      assigned_to:
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+        type: object
+      message?: string
+      completed_at?: string
+      assigned_at?: string
+      reminded_at?: string
+      resolution_state?: string
+      assigned_by?:
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+        type: object
+    example:
+      type: task_assignment
+      id: 2698512
+      item:
+        type: file
+        id: 8018809384
+        sequence_id: 0
+        etag: 0
+        sha1: 7840095ee096ee8297676a138d4e316eabb3ec96
+        name: scrumworksToTrello.js
+      assigned_to:
+        type: user
+        id: 1992432
+        name: rhaegar@box.com
+        login: rhaegar@box.com
+      message: hello!!!
+      completed_at: null
+      assigned_at: 2013-05-10T11:43:41-07:00
+      reminded_at: null
+      resolution_state: incomplete
+      assigned_by:
+        type: user
+        id: 11993747
+        name: sean
+        login: sean@box.com
+  AssignmentSummariesItem:
+    type: object
+    properties:
+      type: string
+      id: string
+      item:
+        type: object
+        properties:
+          type: string
+          id: string
+          sequence_id: string
+          etag: string
+          sha1: string
+          name: string
+      assigned_to:
+        type: object
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+    example:
+      type: task_assignment
+      id: 2485961
+      item:
+        type: file
+        id: 7287087200
+        sequence_id: 0
+        etag: 0
+        sha1: 0bbd79a105c504f99573e3799756debba4c760cd
+        name: box-logo.png
+      assigned_to:
+        type: user
+        id: 193425559
+        name: Rhaegar Targaryen
+        login: rhaegar@box.com
+  AssignmentSummariesCollecton:
+    type: object
+    properties:
+      total_count: integer
+      entries: AssignmentSummariesItem[]
+    example:
+      total_count: 1
+      entries:
+        - type: task_assignment
+          id: 2485961
+          item:
+            type: file
+            id: 7287087200
+            sequence_id: 0
+            etag: 0
+            sha1: 0bbd79a105c504f99573e3799756debba4c760cd
+            name: box-logo.png
+          assigned_to:
+            type: user
+            id: 193425559
+            name: Rhaegar Targaryen
+            login: rhaegar@box.com
+  FileVersion:
+    type:  object
+    properties:
+      type?: string
+      id?: string
+      sha1?: string
+      name?: string
+      size?: number
+      created_at?: string
+      modified_at?: string
+      modified_by?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+    example:
+      type : file_version
+      id : 871399
+      sha1 : 12039d6dd9a7e6eefc78846802e
+      name : Stark Family Lineage.doc
+      size : 11
+      created_at : 2013-11-20T13:20:50-08:00
+      modified_at : 2013-11-20T13:26:48-08:00
+      modified_by :
+        type : user
+        id : 13711334
+        name : Eddard Stark
+        login : ned@winterfell.com
+  TaskUpdate:
+    type: object
+    properties:
+      action?:
+        description: The action the task assignee will be prompted to do. Can be 'review'.
+        type: string
+      message?:
+        description: An optional message to include with the task.
+        type: string
+      due_at?:
+        type: string
+        description: The day at which this task is due.
+    example:
+      message: REVIEW PLZ K THX
+  UserUpdate:
+    type:  object
+    properties:
+      enterprise?:
+        description: Setting this to 'null' will roll the user out of the enterprise and make them a free user.
+        type: string
+      name?:
+        description: The name of this user.
+        type: string
+      role?:
+        description: This user's enterprise role. Can be 'coadmin' or 'user'.
+        type: string
+      language?:
+        description: The language of this user. ISO 639-1 Language Code.
+        type: string
+        maxLength: 2
+      is_sync_enabled?:
+        description: Whether or not this user can use Box Sync.
+        type: boolean
+      job_title?:
+        description: The user's job title.
+        type: string
+      phone?:
+        description: The user's phone number.
+        type: string
+      address?:
+        description: The user's address.
+        type: string
+      space_amount?:
+        description: The user's total available space amount in byte. A value of '-1' grants unlimited storage.
+        type: number
+      tracking_codes?:
+        description: An array of key/value pairs set by the user's admin.
+        type: array
+      can_see_managed_users?:
+        description: Whether this user can see other enterprise users in its contact list.
+        type: boolean
+      status?:
+        description: Can be 'active' or 'inactive'.
+        type: string
+      is_exempt_from_device_limits?:
+        description: Whether to exempt this user from Enterprise device limits.
+        type: boolean
+      is_exempt_from_login_verification?:
+        description: Whether or not this user must use two-factor authentication.
+        type: boolean
+      is_password_reset_required?:
+        description: Whether or not the user is required to reset password.
+        type: boolean
+    example:
+      name: sean
+  Task_assignmentUpdate:
+    type: object
+    properties:
+      message:
+        description: A message from the assignee about this task.
+        type: string
+      resolution_state:
+        description: Can be 'completed' 'incomplete' 'approved' or 'rejected'.
+        type: string
+    example:
+      message: hello!!!
+      resolution_state : completed
+  CopyItem:
+    type: object
+    properties:
+      name?:
+        description: The new name for this item.
+        type: string
+      parent:
+        description: The new parent folder for this item.
+        type: object
+        properties:
+          id: string
+      id?:
+        description: The id of the new parent folder.
+        type: string
+    example:
+      parent:
+        id : FOLDER_ID
+  FileVersionPromote:
+    type: object
+    properties:
+      type?: string
+      id?: string
+    example:
+      type : file_version
+      id : FILE_VERSION_ID
+  NewEmailAlias:
+    type: object
+    properties:
+      email:
+        description: The email address to add to the account as an alias.
+        type: string
+    example:
+      email : dglover2@box.com
+  NewFolder:
+    type: object
+    properties:
+      name:
+        description: The new name for this item.
+        type: string
+      parent:
+        description: The new parent folder for this item.
+        type: object
+        properties:
+          id: string
+      id?:
+        description: The id of the new parent folder.
+        type: string
+    example:
+      name: New Folder
+      parent:
+        id: 0
+  EventPollItem:
+    type: object
+    properties:
+      type: string
+      url: string
+      ttl: string
+      max_retries: string
+      retry_timeout: integer
+    example:
+      type: realtime_server
+      url: http:\/\/2.realtime.services.box.net\/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all
+      ttl: 10
+      max_retries: 10
+      retry_timeout: 610
+  EventsPollInformation:
+    type: object
+    properties:
+      chunk_size: integer
+      entries: EventPollItem[]
+    example:
+      chunk_size: 1
+      entries:
+        - type: realtime_server
+          url: http:\/\/2.realtime.services.box.net\/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all
+          ttl: 10
+          max_retries: 10
+          retry_timeout: 610
+  UserFolderMove:
+    type: object
+    properties:
+      owned_by:
+        description: The user who the folder will be transferred to.
+        type: object
+        properties:
+          id:
+            description: The ID of the user who the folder will be transferred to.
+            type: string
+    example:
+      owned_by:
+        id: USER_ID
+  VersionItem:
+    type: object
+    properties:
+      type: string
+      id: string
+      sha1: string
+      name: string
+      size: integer
+      created_at: string
+      modified_at: string
+      modified_by:
+        type: object
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+    example:
+      type: file_version
+      id: 672259576
+      sha1: 359c6c1ed98081b9a69eb3513b9deced59c957f9
+      name: Dragons.js
+      size: 92556
+      created_at: 2012-08-20T10:20:30-07:00
+      modified_at: 2012-11-28T13:14:58-08:00
+      modified_by:
+          type: user
+          id: 183732129
+          name: sean rose
+          login: sean+apitest@box.com
+  VersionsCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: VersionItem[]
+    example:
+      total_count: 1
+      entries:
+        - type: file_version
+          id: 672259576
+          sha1: 359c6c1ed98081b9a69eb3513b9deced59c957f9
+          name: Dragons.js
+          size: 92556
+          created_at: 2012-08-20T10:20:30-07:00
+          modified_at: 2012-11-28T13:14:58-08:00
+          modified_by:
+              type: user
+              id: 183732129
+              name: sean rose
+              login: sean+apitest@box.com
+  CommentUpdate:
+    type: object
+    properties:
+      message:
+        description: The desired text for the comment message.
+        type: string
+    example:
+      message: "My New Message"
+  FolderUpdate:
+    type: object
+    properties:
+      name:
+        description: The desired name for the folder.
+        type: string
+      parent:
+        description: The parent folder.
+        type: object
+      id?:
+        description: The ID of the parent folder.
+        type: string
+      description?:
+        description: The description of the folder.
+        type: string
+      shared_link?:
+        description: An object representing this item's shared link and associated permissions.
+        type: object
+      access?:
+        description: The level of access required for this shared link.
+        type: object
+      unshared_at?:
+        description: The day that this link should be disabled at. Timestamps are rounded off to the given day.
+        type: object
+    example:
+      name: New Folder
+      parent:
+        id: 0
+  EventItem:
+    type: object
+    properties:
+      type: string
+      event_id: string
+      created_by:
+        type: object
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+      created_at: string
+      recorded_at: string
+      event_type:
+        enum:
+         - ITEM_CREATE
+         - ITEM_UPLOAD
+         - COMMENT_CREATE
+         - ITEM_DOWNLOAD
+         - ITEM_PREVIEW
+         - ITEM_MOVE
+         - ITEM_COPY
+         - TASK_ASSIGNMENT_CREATE
+         - LOCK_CREATE
+         - LOCK_DESTROY
+         - ITEM_TRASH
+         - ITEM_UNDELETE_VIA_TRASH
+         - COLLAB_ADD_COLLABORATOR
+         - COLLAB_INVITE_COLLABORATOR
+         - ITEM_SYNC
+         - ITEM_UNSYNC
+         - ITEM_RENAME
+         - ITEM_SHARED_CREATE
+         - ITEM_SHARED_UNSHARE
+         - ITEM_SHARED
+         - TAG_ITEM_CREATE
+         - ADD_LOGIN_ACTIVITY_DEVICE
+         - REMOVE_LOGIN_ACTIVITY_DEVICE
+         - CHANGE_ADMIN_ROLE
+      session_id: string
+      source:
+        type: object
+        properties:
+          type: string
+          id: string
+          sequence_id: string
+          etag: string
+          name: string
+          created_at: string
+          modified_at: string
+          description?: string
+          size?: integer
+          created_by:
+            type: object
+            properties:
+              type: string
+              id: string
+              name: string
+              login: string
+          modified_by:
+            type: object
+            properties:
+              type: string
+              id: string
+              name: string
+              login: string
+          owned_by:
+            type: object
+            properties:
+              type: string
+              id: string
+              name: string
+              login: string
+          shared_link?: string
+          parent:
+            type: object
+            properties:
+              type: string
+              id: string
+              sequence_id?: string
+              etag?: string
+              name: string
+          item_status: string
+          synced?: boolean
+    example:
+      type: event
+      event_id: f82c3ba03e41f7e8a7608363cc6c0390183c3f83
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      created_at: 2012-12-12T10:53:43-08:00
+      recorded_at: 2012-12-12T10:53:48-08:00
+      event_type: ITEM_CREATE
+      session_id: 70090280850c8d2a1933c1
+      source:
+        type: folder
+        id: 11446498
+        sequence_id: 0
+        etag: 0
+        name: Pictures
+        created_at: 2012-12-12T10:53:43-08:00
+        modified_at: 2012-12-12T10:53:43-08:00
+        description: null
+        size: 0
+        created_by:
+          type: user
+          id: 17738362
+          name: sean rose
+          login: sean@box.com
+        modified_by:
+          type: user
+          id: 17738362
+          name: sean rose
+          login: sean@box.com
+        owned_by:
+          type: user
+          id: 17738362
+          name: sean rose
+          login: sean@box.com
+        shared_link: null
+        parent:
+          type: folder
+          id: 0
+          sequence_id: null
+          etag: null
+          name: All Files
+        item_status: active
+        synced: false
+  EventsCollection:
+    type: object
+    properties:
+      chunk_size: integer
+      next_stream_position: integer
+      entries: EventItem[]
+    example:
+      chunk_size: 1
+      next_stream_position: 1348790499819
+      entries:
+        - type: event
+          event_id: f82c3ba03e41f7e8a7608363cc6c0390183c3f83
+          created_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          created_at: 2012-12-12T10:53:43-08:00
+          recorded_at: 2012-12-12T10:53:48-08:00
+          event_type: ITEM_CREATE
+          session_id: 70090280850c8d2a1933c1
+          source:
+            type: folder
+            id: 11446498
+            sequence_id: 0
+            etag: 0
+            name: Pictures
+            created_at: 2012-12-12T10:53:43-08:00
+            modified_at: 2012-12-12T10:53:43-08:00
+            description: null
+            size: 0
+            created_by:
+              type: user
+              id: 17738362
+              name: sean rose
+              login: sean@box.com
+            modified_by:
+              type: user
+              id: 17738362
+              name: sean rose
+              login: sean@box.com
+            owned_by:
+              type: user
+              id: 17738362
+              name: sean rose
+              login: sean@box.com
+            shared_link: null
+            parent:
+              type: folder
+              id: 0
+              sequence_id: null
+              etag: null
+              name: All Files
+            item_status: active
+            synced: false
+  Path:
+    type: object
+    properties:
+      type: string
+      id: string
+      sequence_id?: string
+      etag?: string
+      name?: string
+    example:
+      type: folder
+      id: 0
+      sequence_id: null
+      etag: null
+      name: All Files
+  FileInformationUpdate:
+    type: object
+    properties:
+      name: string
+      description?: string
+      parent?:
+        type : object
+        properties :
+          id: string
+      shared_link?:
+        type : object
+        properties :
+          access?: string
+          unshared_at?: string
+          permissions?: object
+          permissions.download?: boolean
+          permissions.preview?: boolean
+      tags?: string[]
+    example:
+      name : new name.jpg
+  Item:
+    type: object
+    properties:
+      type:
+        description: For files is 'file'
+        type: string
+      id:
+        description: Box's unique string identifying this file.
+        type: string
+      sequence_id:
+        description: A unique ID for use with the /events endpoint.
+        type: string
+      etag:
+        description: A unique string identifying the version of this file.
+        type: string
+      sha1:
+        description: The sha1 hash of this file.
+        type: string
+      name:
+        description: The name of this file.
+        type: string
+      description?:
+        description: The description of this file.
+        type: string
+      size?:
+        description: Size of this file in bytes.
+        type: integer
+      path_collection?:
+        type: object
+        properties:
+          paths:
+            description: Array of entries.
+            type: object
+            properties:
+              total_count: integer
+              entries: Path[]
+        description: The path of folders to this item starting at the root.
+      created_at?:
+        type: string
+        description: When this file was created on Box's servers.
+      modified_at?:
+        type: string
+        description: When this file was last updated on the Box servers.
+      trashed_at?:
+        type: string
+        description: When this file was last moved to the trash.
+      purged_at?:
+        type: string
+        description: When this file will be permanently deleted.
+      content_created_at?:
+        type: string
+        description: When the content of this file was created.
+      content_modified_at?:
+        type: string
+        description: When the content of this file was last modified.
+      created_by?:
+        type: object
+        description: The user who first created file.
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+      modified_by?:
+        type: object
+        description: The user who last updated this file.
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+      owned_by?:
+        type: object
+        description: The user who owns this file.
+        properties:
+          type: string
+          id: string
+          name: string
+          login: string
+      shared_link?:
+        type: object
+        description: The shared link object for this file.
+        properties:
+          url: string
+          download_url: string
+          vanity_url: string
+          is_password_enabled: boolean
+          unshared_at: string
+          download_count: integer
+          preview_count: integer
+          access: string
+          permissions:
+            properties:
+              can_download: boolean
+              can_preview: boolean
+      parent?:
+        type: object
+        description: The folder this file is contained in.
+        properties:
+          type: string
+          id: string
+          sequence_id: string
+          etag: string
+          name: string
+      item_status?:
+        description: Whether this item is deleted or not.
+        type: string
+      version_number?:
+        description: Whether this folder will be synced by the Box sync clients or not.
+        type: string
+      comment_count?:
+        description: The number of comments on a file
+        type: integer
+    example:
+      type: file
+      id: 2701979016
+      sequence_id: 1
+      etag: 1
+      sha1: 9d976863fc849f6061ecf9736710bd9c2bce488c
+      name: file Tue Jul 24 145436 2012KWPX5S.csv
+  ItemsCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: Item[]
+      offset?: integer
+      limit?: integer
+      order?:
+        type: array
+        items:
+          type: object
+          properties:
+            by: string
+            direction: string
+    example:
+      total_count: 49542
+      entries:
+        - type: file
+          id: 2701979016
+          sequence_id: 1
+          etag: 1
+          sha1: 9d976863fc849f6061ecf9736710bd9c2bce488c
+          name: file Tue Jul 24 145436 2012KWPX5S.csv
+        - type: file
+          id: 2698211586
+          sequence_id: 1
+          etag: 1
+          sha1: 09b0e2e9760caf7448c702db34ea001f356f1197
+          name: file Tue Jul 24 010055 20129Z6GS3.csv
+      offset: 0
+      limit: 2
+  FolderCollectionItem:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      sequence_id?: string
+      etag?: string
+      name?: string
+      sha1?: string
+  Folder:
+    type: object
+    properties:
+      type: string
+      id: string
+      sequence_id?: string
+      etag?: string
+      name?: string
+      created_at?: string
+      modified_at?: string
+      description?: string
+      size?: number
+      purged_at?:
+        type: string
+        description: When this file will be permanently deleted.
+      content_created_at?:
+        type: string
+        description: When the content of this file was created.
+      content_modified_at?:
+        type: string
+        description: When the content of this file was last modified.
+      trashed_at?:
+        type: string
+        description: When this file was last moved to the trash.
+      path_collection?:
+        type: object
+        properties:
+          total_count?: number
+          entries?: Path[]
+      created_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      modified_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      owned_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      shared_link?:
+        type: object
+        properties:
+          url: string
+          download_url: string
+          vanity_url?: string
+          is_password_enabled?: boolean
+          unshared_at?: string
+          download_count?: integer
+          preview_count?: integer
+          access?: string
+          permissions?:
+            properties:
+              can_download?: boolean
+              can_preview?: boolean
+      folder_upload_email?:
+        type: object
+        properties:
+          access?: string
+          email?: string
+      parent?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          sequence_id?: string
+          etag?: string
+          name?: string
+      item_status?: string
+      item_collection?:
+        type: object
+        properties:
+          total_count?: number
+          entries?: FolderCollectionItem[]
+          offset?: number
+          limit?: number
+    example:
+      type: folder
+      id: 11446498
+      sequence_id: 1
+      etag: 1
+      name: Pictures
+      created_at: 2012-12-12T10:53:43-08:00
+      modified_at: 2012-12-12T11:15:04-08:00
+      description: Some pictures I took
+      size: 629644
+      path_collection:
+        total_count: 1
+        entries:
+         -  type: folder
+            id: 0
+            sequence_id: null
+            etag: null
+            name: All Files
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      modified_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      owned_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      shared_link:
+        url: https://www.box.com/s/vspke7y05sb214wjokpk
+        download_url: https://www.box.com/shared/static/vspke7y05sb214wjokpk
+        vanity_url: null
+        is_password_enabled: false
+        unshared_at: null
+        download_count: 0
+        preview_count: 0
+        access: open
+        permissions:
+            can_download: true
+            can_preview: true
+      folder_upload_email:
+        access: open
+        email: upload.Picture.k13sdz1@u.box.com
+      parent:
+        type: folder
+        id: 0
+        sequence_id: null
+        etag: null
+        name: All Files
+      item_status: active
+      item_collection:
+        total_count: 0
+        entries: []
+        offset: 0
+        limit: 100
+  File:
+    type: object
+    properties:
+      type:
+        description: For files is 'file'
+        type: string
+      id:
+        description: Box's unique string identifying this file.
+        type: string
+      sequence_id:
+        description: A unique ID for use with the /events endpoint.
+        type: string
+      etag:
+        description: A unique string identifying the version of this file.
+        type: string
+      name:
+        description: The name of this file.
+        type: string
+      created_at:
+        type: string
+        description: When this file was created on Box's servers.
+      modified_at:
+        type: string
+        description: When this file was last updated on the Box servers.
+      description?:
+        description: The description of this file.
+        type: string
+      size:
+        description: Size of this file in bytes.
+        type: integer
+      path_collection:
+        type: object
+        properties:
+          total_count?: number
+          entries?: Path[]
+        description: The path of folders to this item starting at the root.
+      trashed_at?:
+        type: string
+        description: When this file was last moved to the trash.
+      purged_at?:
+        type: string
+        description: When this file will be permanently deleted.
+      content_created_at?:
+        type: string
+        description: When the content of this file was created.
+      content_modified_at?:
+        type: string
+        description: When the content of this file was last modified.
+      sha1?:
+        description: The sha1 hash of this file.
+        type: string
+      comment_count?:
+        description: The number of comments on a file
+        type: integer
+      version_number?:
+        description: Whether this folder will be synced by the Box sync clients or not.
+        type: string
+      created_by?:
+        type: object
+        description: The user who first created file.
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      modified_by?:
+        type: object
+        description: The user who last updated this file.
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      owned_by?:
+        type: object
+        description: The user who owns this file.
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      shared_link?:
+          type: object
+          properties:
+            url?: string
+            download_url?: string
+            vanity_url?: string
+            is_password_enabled?: boolean
+            unshared_at?: string
+            download_count?: integer
+            preview_count?: integer
+            access?: string
+            permissions?:
+              properties:
+                can_download?: boolean
+                can_preview?: boolean
+      parent?:
+        type: object
+        description: The folder this file is contained in.
+        properties:
+          type?: string
+          id?: string
+          sequence_id?: string
+          etag?: string
+          name?: string
+      item_status?:
+        description: Whether this item is deleted or not.
+        type: string
+      folder_upload_email?:
+        type: object
+        properties:
+          access?: string
+          email?: string
+      item_collection?:
+        type: object
+        properties:
+          total_count?: integer
+          entries?: FolderCollectionItem[]
+          offset?: integer
+          limit?: integer
+    example:
+      type: folder
+      id: 11446498
+      sequence_id: 1
+      etag: 1
+      name: Pictures
+      created_at: 2012-12-12T10:53:43-08:00
+      modified_at: 2012-12-12T11:15:04-08:00
+      description: Some pictures I took
+      size: 629644
+      path_collection:
+        total_count: 1
+        entries:
+          - type: folder
+            id: 0
+            sequence_id: null
+            etag: null
+            name: All Files
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      modified_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      owned_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      shared_link:
+        url: https://www.box.com/s/vspke7y05sb214wjokpk
+        download_url: https://www.box.com/shared/static/vspke7y05sb214wjokpk
+        vanity_url: null
+        is_password_enabled: false
+        unshared_at: null
+        download_count: 0
+        preview_count: 0
+        access: open
+        permissions:
+          can_download: true
+          can_preview: true
+      folder_upload_email:
+        access: open
+        email: upload.Picture.k13sdz1@u.box.com
+      parent:
+        type: folder
+        id: 0
+        sequence_id: null
+        etag: null
+        name: All Files
+      item_status: active
+      item_collection:
+        total_count: 1
+        entries:
+          - type: file
+            id: 5000948880
+            sequence_id: 3
+            etag: 3
+            sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
+            name: tigers.jpeg
+        offset: 0
+        limit: 100
+  UsersCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: User[]
+    example:
+      total_count: 1
+      entries:
+        - type: user
+          id: 187273718
+          name: Ned Stark
+          login: eddard@box.com
+          created_at: 2012-11-15T16:34:28-08:00
+          modified_at: 2012-11-15T16:34:29-08:00
+          role: user
+          language: en
+          space_amount: 5368709120
+          space_used: 0
+          max_upload_size: 2147483648
+          tracking_codes: []
+          can_see_managed_users: true
+          is_sync_enabled: true
+          status: active
+          job_title:
+          phone: 555-555-5555
+          address: 555 Box Lane
+          avatar_url: https://www.box.com/api/avatar/large/187273718
+          is_exempt_from_device_limits: false
+          is_exempt_from_login_verification: false
+  NewTaskAssignment:
+    type: object
+    properties:
+      task?:
+        type : object
+        properties :
+          id?: string
+          type?: string
+      assign_to?:
+        type : object
+        properties :
+          id?: string
+          login?: string
+    example:
+      task :
+        id : 1992432
+        type : task
+      assign_to :
+        id : 1992432
+  TaskSummaryItem:
+    type: object
+    properties:
+      type: string
+      id: string
+      item:
+        type: object
+        properties:
+          type: string
+          id: string
+          sequence_id: string
+          etag: string
+          sha1: string
+          name: string
+      due_at: string
+    example:
+      type: task
+      id: 1786931
+      item:
+        type: file
+        id: 7026335894
+        sequence_id: 6
+        etag: 6
+        sha1: 81cc829fb8366fcfc108aa6c5a9bde01a6a10c16
+        name: API - Persist On-Behalf-Of information.docx
+      due_at: null
+  TaskSummariesCollection:
+    type: object
+    properties:
+      total_count: integer
+      entries: TaskSummaryItem[]
+    example:
+      total_count: 1
+      entries:
+        - type: task
+          id: 1786931
+          item:
+            type: file
+            id: 7026335894
+            sequence_id: 6
+            etag: 6
+            sha1: 81cc829fb8366fcfc108aa6c5a9bde01a6a10c16
+            name: API - Persist On-Behalf-Of information.docx
+          due_at: null
+  Task:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      item?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          sequence_id?: string
+          etag?: string
+          sha1?: string
+          name?: string
+      due_at?:
+        type : object
+      action?: string
+      message?: string
+      task_assignment_collection?:
+        type : object
+        properties :
+          total_count?: number
+          entries?: TaskAssignment[]
+      is_completed?:
+        type : boolean
+      created_by?:
+        type : object
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      created_at?: string
+    example:
+      type : task
+      id : 5595397
+      item :
+        type : file
+        id : 23629729463
+        sequence_id : 3
+        etag : 3
+        sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
+        name : sample.txt
+      due_at : null
+      action : review
+      message : oeu
+      task_assignment_collection :
+        total_count : 1
+        entries :
+          - type : task_assignment
+            id : 7740085
+            message: oeu
+            item :
+              type : file
+              id : 23629729463
+              sequence_id : 3
+              etag : 3
+              sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
+              name : sample.txt
+            assigned_to :
+              type : user
+              id : 214268589
+              name : RAML QA
+              login : ramlqa@mulesoft.com
+      is_completed : false
+      created_by :
+        type : user
+        id : 214268589
+        name : RAML QA
+        login : ramlqa@mulesoft.com
+      created_at : 2015-03-16T11:22:56-07:00
+  SearchResultItem:
+    type: object
+    properties:
+      type?: string
+      id?: string
+      sequence_id?: string
+      etag?: string
+      sha1?: string
+      name?: string
+      description?: string
+      size?: number
+      path_collection?:
+        type : object
+        properties :
+          total_count?: number
+          entries : Path[]
+      created_at?: string
+      modified_at?: string
+      trashed_at?: object
+      purged_at?: object
+      content_created_at?: string
+      content_modified_at?: string
+      created_by :
+        type : object
+        required : false
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      modified_by :
+        type : object
+        required : false
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      owned_by :
+        type : object
+        required : false
+        properties :
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      shared_link?: object
+      parent :
+        type : object
+        required : false
+        properties :
+          type?: string
+          id?: string
+          sequence_id?: object
+          etag?: object
+          name?: string
+      item_status?: string
+    example:
+      type : file
+      id : 16098267691
+      sequence_id : 4
+      etag : 4
+      sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
+      name : sample.txt
+      description :
+      size : 19
+      path_collection :
+        total_count : 1
+        entries :
+          - type : folder
+            id : 0
+            sequence_id : null
+            etag : null
+            name : All Files
+      created_at : 2014-04-10T06:38:50-07:00
+      modified_at : 2014-04-14T12:27:36-07:00
+      trashed_at : null
+      purged_at : null
+      content_created_at : 2014-01-28T12:20:39-08:00
+      content_modified_at : 2014-03-13T08:46:14-07:00
+      created_by :
+        type : user
+        id : 214268589
+        name : RAML QA
+        login : ramlqa@mulesoft.com
+      modified_by :
+        type : user
+        id : 214268589
+        name : RAML QA
+        login : ramlqa@mulesoft.com
+      owned_by :
+        type : user
+        id : 214268589
+        name : RAML QA
+        login : ramlqa@mulesoft.com
+      shared_link : null
+      parent :
+        type : folder
+        id : 0
+        sequence_id : null
+        etag : null
+        name : All Files
+      item_status : active
+  SearchResults:
+    type: object
+    properties:
+      total_count?: number
+      entries?: SearchResultItem[]
+      limit?: number
+      offset?: number
+    example:
+      total_count : 2
+      entries :
+        - type : file
+          id : 16098267691
+          sequence_id : 4
+          etag : 4
+          sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
+          name : sample.txt
+          description :
+          size : 19
+          path_collection :
+            total_count : 1
+            entries :
+              - type : folder
+                id : 0
+                sequence_id : null
+                etag : null
+                name : All Files
+          created_at : 2014-04-10T06:38:50-07:00
+          modified_at : 2014-04-14T12:27:36-07:00
+          trashed_at : null
+          purged_at : null
+          content_created_at : 2014-01-28T12:20:39-08:00
+          content_modified_at : 2014-03-13T08:46:14-07:00
+          created_by :
+            type : user
+            id : 214268589
+            name : RAML QA
+            login : ramlqa@mulesoft.com
+          modified_by :
+            type : user
+            id : 214268589
+            name : RAML QA
+            login : ramlqa@mulesoft.com
+          owned_by :
+            type : user
+            id : 214268589
+            name : RAML QA
+            login : ramlqa@mulesoft.com
+          shared_link : null
+          parent :
+            type : folder
+            id : 0
+            sequence_id : null
+            etag : null
+            name : All Files
+          item_status : active
+      limit : 30
+      offset : 0
