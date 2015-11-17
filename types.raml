@@ -1963,3 +1963,241 @@ types:
           item_status : active
       limit : 30
       offset : 0
+  PathArray: Path[]
+  UploadFileItem-request:
+    type: object
+    properties:
+      content_created_at?: string
+      content_modified_at?: string
+      created_at?: string
+      created_by?:
+        type: object
+        properties:
+          id?: string
+          login?: string
+          name?: string
+          type?: string
+      description?: string
+      etag?: string
+      id?: string
+      item_status?: string
+      modified_at?: string
+      modified_by?:
+        type: object
+        properties:
+          id?: string
+          login?: string
+          name?: string
+          type?: string
+      name?: string
+      owned_by?:
+        type: object
+        properties:
+          id?: string
+          login?: string
+          name?: string
+          type?: string
+      parent?:
+        type: object
+        properties:
+          etag?: string
+          id?: string
+          name?: string
+          sequence_id?: string
+          type?: string
+      path_collection?:
+        type: object
+        properties:
+          entries: PathArray[]
+          total_count?: number
+      purged_at?: string
+      sequence_id?: string
+      sha1?: string
+      shared_link?:
+        type: object
+        properties:
+          access?: string
+          download_count?: number
+          download_url?: string
+          is_password_enabled?: boolean
+          permissions?:
+            type: object
+            properties:
+              can_download?: boolean
+              can_preview?: boolean
+          preview_count?: number
+          unshared_at?: string
+          url?: string
+          vanity_url?: string
+      size?: number
+      trashed_at?: string
+      type?: string
+  UploadFile-request:
+    type: object
+    properties:
+      total_count?: number
+      entries?: UploadFileItem-request[]
+  UploadFileItem-response:
+    type: object
+    properties:
+      content_created_at?: string
+      content_modified_at?: string
+      created_at?: string
+      created_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      description?: string
+      etag?: string
+      id?: string
+      item_status?: string
+      modified_at?: string
+      modified_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      name?: string
+      owned_by?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          name?: string
+          login?: string
+      parent?:
+        type: object
+        properties:
+          type?: string
+          id?: string
+          sequence_id?: string
+          etag?: string
+          name?: string
+      path_collection?:
+        type: object
+        properties:
+          total_count?: integer
+          entries: Path[]
+      purged_at?: string
+      sequence_id?: string
+      sha1?: string
+      shared_link?: string
+      size:
+        required: false
+        type: integer
+      trashed_at?: string
+      type?: string
+    example:
+      type: file
+      id: 5000948880
+      sequence_id: 3
+      etag: 3
+      sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
+      name: tigers.jpeg
+      description: a picture of tigers
+      size: 629644
+      path_collection:
+        total_count: 2
+        entries:
+          - type: folder
+            id: 0
+            sequence_id: null
+            etag: null
+            name: All Files
+          - type: folder
+            id: 11446498
+            sequence_id: 1
+            etag: 1
+            name: Pictures
+      created_at: 2012-12-12T10:55:30-08:00
+      modified_at: 2012-12-12T11:04:26-08:00
+      trashed_at: null
+      purged_at: null
+      content_created_at: 2013-02-04T16:57:52-08:00
+      content_modified_at: 2013-02-04T16:57:52-08:00
+      created_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      modified_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      owned_by:
+        type: user
+        id: 17738362
+        name: sean rose
+        login: sean@box.com
+      shared_link: null
+      parent:
+        type: folder
+        id: 11446498
+        sequence_id: 1
+        etag: 1
+        name: Pictures
+      item_status: active
+  UploadFile-response:
+    type: object
+    properties:
+      total_count?: integer
+      entries: UploadFileItem-response[]
+    example:
+      total_count: 1
+      entries:
+        - type: file
+          id: 5000948880
+          sequence_id: 3
+          etag: 3
+          sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
+          name: tigers.jpeg
+          description: a picture of tigers
+          size: 629644
+          path_collection:
+            total_count: 2
+            entries:
+              - type: folder
+                id: 0
+                sequence_id: null
+                etag: null
+                name: All Files
+              - type: folder
+                id: 11446498
+                sequence_id: 1
+                etag: 1
+                name: Pictures
+          created_at: 2012-12-12T10:55:30-08:00
+          modified_at: 2012-12-12T11:04:26-08:00
+          trashed_at: null
+          purged_at: null
+          content_created_at: 2013-02-04T16:57:52-08:00
+          content_modified_at: 2013-02-04T16:57:52-08:00
+          created_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          modified_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          owned_by:
+            type: user
+            id: 17738362
+            name: sean rose
+            login: sean@box.com
+          shared_link: null
+          parent:
+            type: folder
+            id: 11446498
+            sequence_id: 1
+            etag: 1
+            name: Pictures
+          item_status: active
