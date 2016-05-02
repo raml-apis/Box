@@ -84,7 +84,7 @@ types:
             type: string
     example:
       type: user
-      id: 187273718
+      id: "187273718"
       name: Ned Stark
       login: eddard@box.com
       created_at: 2012-11-15T16:34:28-08:00
@@ -94,7 +94,8 @@ types:
       space_amount: 5368709120
       space_used: 0
       max_upload_size: 2147483648
-      tracking_codes: []
+      tracking_codes:
+        - code_example
       can_see_managed_users: true
       is_sync_enabled: true
       status: active
@@ -150,17 +151,17 @@ types:
         description: The time this comment was last modified.
     example:
       type: comment
-      id: 191969
+      id: "191969"
       is_reply_comment: false
       message: These tigers are cool!
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       created_at: 2012-12-12T11:25:01-08:00
       item:
-        id: 5000948880
+        id: "5000948880"
         type: file
       modified_at: 2012-12-12T11:25:01-08:00
   CommentsCollection:
@@ -176,17 +177,17 @@ types:
       limit: 100
       entries:
         - type: comment
-          id: 191969
+          id: "191969"
           is_reply_comment: false
           message: These tigers are cool!
           created_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           created_at: 2012-12-12T11:25:01-08:00
           item:
-            id: 5000948880
+            id: "5000948880"
             type: file
           modified_at: 2012-12-12T11:25:01-08:00
   NewComment:
@@ -218,7 +219,7 @@ types:
       email: string
     example:
       type : email_alias
-      id : 1234
+      id : "1234"
       is_confirmed : true
       email : dglover2@box.com
   NewCollaboration:
@@ -253,7 +254,7 @@ types:
       total_count: 1
       entries:
         - type : email_alias
-          id : 1234
+          id : "1234"
           is_confirmed : true
           email : dglover2@box.com
   NewGroup:
@@ -297,10 +298,10 @@ types:
           name?: string
     example:
       type: collaboration
-      id: 791293
+      id: "791293"
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       created_at: 2012-12-12T10:54:37-08:00
@@ -309,16 +310,16 @@ types:
       status: accepted
       accessible_by:
         type: user
-        id: 18203124
+        id: "18203124"
         name: sean
         login: sean+test@box.com
       role: editor
       acknowledged_at: 2012-12-12T11:30:43-08:00
       item:
         type: folder
-        id: 11446500
-        sequence_id: 0
-        etag: 0
+        id: "11446500"
+        sequence_id: "0"
+        etag: "0"
         name: Shared Pictures
   CollaborationsCollection:
     type: object
@@ -329,10 +330,10 @@ types:
       total_count: 1
       entries:
         - type: collaboration
-          id: 791293
+          id: "791293"
           created_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           created_at: 2012-12-12T10:54:37-08:00
@@ -341,16 +342,16 @@ types:
           status: accepted
           accessible_by:
             type: user
-            id: 18203124
+            id: "18203124"
             name: sean
             login: sean+test@box.com
           role: editor
           acknowledged_at: 2012-12-12T11:30:43-08:00
           item:
             type: folder
-            id: 11446500
-            sequence_id: 0
-            etag: 0
+            id: "11446500"
+            sequence_id: "0"
+            etag: "0"
             name: Shared Pictures
   Group:
     type: object
@@ -362,7 +363,7 @@ types:
       modified_at?: string
     example:
       type: group
-      id: 119720
+      id: "119720"
       name: framily
       created_at: 2013-05-16T15:27:57-07:00
       modified_at: 2013-05-16T15:27:57-07:00
@@ -397,9 +398,9 @@ types:
           id?: string
     example:
       user :
-        id : 1992432
+        id : "1992432"
       group :
-        id : 1992432
+        id : "1992432"
   GroupMembershipEntry:
     type: object
     properties:
@@ -423,15 +424,15 @@ types:
       modified_at?: string
     example:
       type : group_membership
-      id : 1560354
+      id : "1560354"
       user :
         type : user
-        id : 13130906
+        id : "13130906"
         name : Alice
         login : alice@gmail.com
       group :
         type : group
-        id : 119720
+        id : "119720"
         name : family
       role : member
   GroupMemberships:
@@ -445,27 +446,27 @@ types:
       total_count : 2
       entries :
         - type : group_membership
-          id : 1560354
+          id : "1560354"
           user :
             type : user
-            id : 13130906
+            id : "13130906"
             name : Alice
             login : alice@gmail.com
           group :
             type : group
-            id : 119720
+            id : "119720"
             name : family
           role : member
         - type : group_membership
-          id : 1560356
+          id : "1560356"
           user :
             type : user
-            id : 192633962
+            id : "192633962"
             name : rabbit
             login : rabbit@gmail.com
           group :
             type : group
-            id : 119720
+            id : "119720"
             name : family
           role : member
       offset : 0
@@ -484,7 +485,7 @@ types:
         required : false
     example:
       type : group
-      id : 1786931
+      id : "1786931"
       name : friends
   MiniGroups:
     type: object
@@ -497,7 +498,7 @@ types:
       total_count : 1
       entries :
         - type : group
-          id : 1786931
+          id : "1786931"
           name : friends
       limit : 100
       offset : 0
@@ -563,17 +564,17 @@ types:
         type: object
     example:
       type: task_assignment
-      id: 2698512
+      id: "2698512"
       item:
         type: file
-        id: 8018809384
-        sequence_id: 0
-        etag: 0
+        id: "8018809384"
+        sequence_id: "0"
+        etag: "0"
         sha1: 7840095ee096ee8297676a138d4e316eabb3ec96
         name: scrumworksToTrello.js
       assigned_to:
         type: user
-        id: 1992432
+        id: "1992432"
         name: rhaegar@box.com
         login: rhaegar@box.com
       message: hello!!!
@@ -583,7 +584,7 @@ types:
       resolution_state: incomplete
       assigned_by:
         type: user
-        id: 11993747
+        id: "11993747"
         name: sean
         login: sean@box.com
   AssignmentSummariesItem:
@@ -609,17 +610,17 @@ types:
           login: string
     example:
       type: task_assignment
-      id: 2485961
+      id: "2485961"
       item:
         type: file
-        id: 7287087200
-        sequence_id: 0
-        etag: 0
+        id: "7287087200"
+        sequence_id: "0"
+        etag: "0"
         sha1: 0bbd79a105c504f99573e3799756debba4c760cd
         name: box-logo.png
       assigned_to:
         type: user
-        id: 193425559
+        id: "193425559"
         name: Rhaegar Targaryen
         login: rhaegar@box.com
   AssignmentSummariesCollecton:
@@ -631,17 +632,17 @@ types:
       total_count: 1
       entries:
         - type: task_assignment
-          id: 2485961
+          id: "2485961"
           item:
             type: file
-            id: 7287087200
-            sequence_id: 0
-            etag: 0
+            id: "7287087200"
+            sequence_id: "0"
+            etag: "0"
             sha1: 0bbd79a105c504f99573e3799756debba4c760cd
             name: box-logo.png
           assigned_to:
             type: user
-            id: 193425559
+            id: "193425559"
             name: Rhaegar Targaryen
             login: rhaegar@box.com
   FileVersion:
@@ -663,7 +664,7 @@ types:
           login?: string
     example:
       type : file_version
-      id : 871399
+      id : "871399"
       sha1 : 12039d6dd9a7e6eefc78846802e
       name : Stark Family Lineage.doc
       size : 11
@@ -671,7 +672,7 @@ types:
       modified_at : 2013-11-20T13:26:48-08:00
       modified_by :
         type : user
-        id : 13711334
+        id : "13711334"
         name : Eddard Stark
         login : ned@winterfell.com
   TaskUpdate:
@@ -801,7 +802,7 @@ types:
     example:
       name: New Folder
       parent:
-        id: 0
+        id: "0"
   EventPollItem:
     type: object
     properties:
@@ -813,8 +814,8 @@ types:
     example:
       type: realtime_server
       url: http:\/\/2.realtime.services.box.net\/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all
-      ttl: 10
-      max_retries: 10
+      ttl: "10"
+      max_retries: "10"
       retry_timeout: 610
   EventsPollInformation:
     type: object
@@ -826,8 +827,8 @@ types:
       entries:
         - type: realtime_server
           url: http:\/\/2.realtime.services.box.net\/subscribe?channel=cc807c9c4869ffb1c81a&stream_type=all
-          ttl: 10
-          max_retries: 10
+          ttl: "10"
+          max_retries: "10"
           retry_timeout: 610
   UserFolderMove:
     type: object
@@ -861,7 +862,7 @@ types:
           login: string
     example:
       type: file_version
-      id: 672259576
+      id: "672259576"
       sha1: 359c6c1ed98081b9a69eb3513b9deced59c957f9
       name: Dragons.js
       size: 92556
@@ -869,7 +870,7 @@ types:
       modified_at: 2012-11-28T13:14:58-08:00
       modified_by:
           type: user
-          id: 183732129
+          id: "183732129"
           name: sean rose
           login: sean+apitest@box.com
   VersionsCollection:
@@ -881,7 +882,7 @@ types:
       total_count: 1
       entries:
         - type: file_version
-          id: 672259576
+          id: "672259576"
           sha1: 359c6c1ed98081b9a69eb3513b9deced59c957f9
           name: Dragons.js
           size: 92556
@@ -889,7 +890,7 @@ types:
           modified_at: 2012-11-28T13:14:58-08:00
           modified_by:
               type: user
-              id: 183732129
+              id: "183732129"
               name: sean rose
               login: sean+apitest@box.com
   CommentUpdate:
@@ -1018,7 +1019,7 @@ types:
       event_id: f82c3ba03e41f7e8a7608363cc6c0390183c3f83
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       created_at: 2012-12-12T10:53:43-08:00
@@ -1027,9 +1028,9 @@ types:
       session_id: 70090280850c8d2a1933c1
       source:
         type: folder
-        id: 11446498
-        sequence_id: 0
-        etag: 0
+        id: "11446498"
+        sequence_id: "0"
+        etag: "0"
         name: Pictures
         created_at: 2012-12-12T10:53:43-08:00
         modified_at: 2012-12-12T10:53:43-08:00
@@ -1037,23 +1038,23 @@ types:
         size: 0
         created_by:
           type: user
-          id: 17738362
+          id: "17738362"
           name: sean rose
           login: sean@box.com
         modified_by:
           type: user
-          id: 17738362
+          id: "17738362"
           name: sean rose
           login: sean@box.com
         owned_by:
           type: user
-          id: 17738362
+          id: "17738362"
           name: sean rose
           login: sean@box.com
         shared_link: null
         parent:
           type: folder
-          id: 0
+          id: "0"
           sequence_id: null
           etag: null
           name: All Files
@@ -1073,7 +1074,7 @@ types:
           event_id: f82c3ba03e41f7e8a7608363cc6c0390183c3f83
           created_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           created_at: 2012-12-12T10:53:43-08:00
@@ -1082,9 +1083,9 @@ types:
           session_id: 70090280850c8d2a1933c1
           source:
             type: folder
-            id: 11446498
-            sequence_id: 0
-            etag: 0
+            id: "11446498"
+            sequence_id: "0"
+            etag: "0"
             name: Pictures
             created_at: 2012-12-12T10:53:43-08:00
             modified_at: 2012-12-12T10:53:43-08:00
@@ -1092,23 +1093,23 @@ types:
             size: 0
             created_by:
               type: user
-              id: 17738362
+              id: "17738362"
               name: sean rose
               login: sean@box.com
             modified_by:
               type: user
-              id: 17738362
+              id: "17738362"
               name: sean rose
               login: sean@box.com
             owned_by:
               type: user
-              id: 17738362
+              id: "17738362"
               name: sean rose
               login: sean@box.com
             shared_link: null
             parent:
               type: folder
-              id: 0
+              id: "0"
               sequence_id: null
               etag: null
               name: All Files
@@ -1124,7 +1125,7 @@ types:
       name?: string
     example:
       type: folder
-      id: 0
+      id: "0"
       sequence_id: null
       etag: null
       name: All Files
@@ -1263,9 +1264,9 @@ types:
         type: integer
     example:
       type: file
-      id: 2701979016
-      sequence_id: 1
-      etag: 1
+      id: "2701979016"
+      sequence_id: "1"
+      etag: "1"
       sha1: 9d976863fc849f6061ecf9736710bd9c2bce488c
       name: file Tue Jul 24 145436 2012KWPX5S.csv
   ItemsCollection:
@@ -1286,15 +1287,15 @@ types:
       total_count: 49542
       entries:
         - type: file
-          id: 2701979016
-          sequence_id: 1
-          etag: 1
+          id: "2701979016"
+          sequence_id: "1"
+          etag: "1"
           sha1: 9d976863fc849f6061ecf9736710bd9c2bce488c
           name: file Tue Jul 24 145436 2012KWPX5S.csv
         - type: file
-          id: 2698211586
-          sequence_id: 1
-          etag: 1
+          id: "2698211586"
+          sequence_id: "1"
+          etag: "1"
           sha1: 09b0e2e9760caf7448c702db34ea001f356f1197
           name: file Tue Jul 24 010055 20129Z6GS3.csv
       offset: 0
@@ -1396,9 +1397,9 @@ types:
           limit?: number
     example:
       type: folder
-      id: 11446498
-      sequence_id: 1
-      etag: 1
+      id: "11446498"
+      sequence_id: "1"
+      etag: "1"
       name: Pictures
       created_at: 2012-12-12T10:53:43-08:00
       modified_at: 2012-12-12T11:15:04-08:00
@@ -1408,23 +1409,23 @@ types:
         total_count: 1
         entries:
          -  type: folder
-            id: 0
+            id: "0"
             sequence_id: null
             etag: null
             name: All Files
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       modified_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       owned_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       shared_link:
@@ -1444,7 +1445,7 @@ types:
         email: upload.Picture.k13sdz1@u.box.com
       parent:
         type: folder
-        id: 0
+        id: "0"
         sequence_id: null
         etag: null
         name: All Files
@@ -1576,9 +1577,9 @@ types:
           limit?: integer
     example:
       type: folder
-      id: 11446498
-      sequence_id: 1
-      etag: 1
+      id: "11446498"
+      sequence_id: "1"
+      etag: "1"
       name: Pictures
       created_at: 2012-12-12T10:53:43-08:00
       modified_at: 2012-12-12T11:15:04-08:00
@@ -1588,23 +1589,23 @@ types:
         total_count: 1
         entries:
           - type: folder
-            id: 0
+            id: "0"
             sequence_id: null
             etag: null
             name: All Files
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       modified_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       owned_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       shared_link:
@@ -1624,7 +1625,7 @@ types:
         email: upload.Picture.k13sdz1@u.box.com
       parent:
         type: folder
-        id: 0
+        id: "0"
         sequence_id: null
         etag: null
         name: All Files
@@ -1633,9 +1634,9 @@ types:
         total_count: 1
         entries:
           - type: file
-            id: 5000948880
-            sequence_id: 3
-            etag: 3
+            id: "5000948880"
+            sequence_id: "3"
+            etag: "3"
             sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
             name: tigers.jpeg
         offset: 0
@@ -1649,7 +1650,7 @@ types:
       total_count: 1
       entries:
         - type: user
-          id: 187273718
+          id: "187273718"
           name: Ned Stark
           login: eddard@box.com
           created_at: 2012-11-15T16:34:28-08:00
@@ -1684,10 +1685,10 @@ types:
           login?: string
     example:
       task :
-        id : 1992432
+        id : "1992432"
         type : task
       assign_to :
-        id : 1992432
+        id : "1992432"
   TaskSummaryItem:
     type: object
     properties:
@@ -1705,12 +1706,12 @@ types:
       due_at: string
     example:
       type: task
-      id: 1786931
+      id: "1786931"
       item:
         type: file
-        id: 7026335894
-        sequence_id: 6
-        etag: 6
+        id: "7026335894"
+        sequence_id: "6"
+        etag: "6"
         sha1: 81cc829fb8366fcfc108aa6c5a9bde01a6a10c16
         name: API - Persist On-Behalf-Of information.docx
       due_at: null
@@ -1723,12 +1724,12 @@ types:
       total_count: 1
       entries:
         - type: task
-          id: 1786931
+          id: "1786931"
           item:
             type: file
-            id: 7026335894
-            sequence_id: 6
-            etag: 6
+            id: "7026335894"
+            sequence_id: "6"
+            etag: 6"
             sha1: 81cc829fb8366fcfc108aa6c5a9bde01a6a10c16
             name: API - Persist On-Behalf-Of information.docx
           due_at: null
@@ -1767,39 +1768,38 @@ types:
       created_at?: string
     example:
       type : task
-      id : 5595397
+      id : "5595397"
       item :
         type : file
-        id : 23629729463
-        sequence_id : 3
-        etag : 3
+        id : "23629729463"
+        sequence_id : "3"
+        etag : "3"
         sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
         name : sample.txt
-      due_at : null
       action : review
       message : oeu
       task_assignment_collection :
         total_count : 1
         entries :
           - type : task_assignment
-            id : 7740085
+            id : "7740085"
             message: oeu
             item :
               type : file
-              id : 23629729463
-              sequence_id : 3
-              etag : 3
+              id : "23629729463"
+              sequence_id : "3"
+              etag : "3"
               sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
               name : sample.txt
             assigned_to :
               type : user
-              id : 214268589
+              id : "214268589"
               name : RAML QA
               login : ramlqa@mulesoft.com
       is_completed : false
       created_by :
         type : user
-        id : 214268589
+        id : "214268589"
         name : RAML QA
         login : ramlqa@mulesoft.com
       created_at : 2015-03-16T11:22:56-07:00
@@ -1862,9 +1862,9 @@ types:
       item_status?: string
     example:
       type : file
-      id : 16098267691
-      sequence_id : 4
-      etag : 4
+      id : "16098267691"
+      sequence_id : "4"
+      etag : "4"
       sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
       name : sample.txt
       description :
@@ -1873,37 +1873,32 @@ types:
         total_count : 1
         entries :
           - type : folder
-            id : 0
+            id : "0"
             sequence_id : null
             etag : null
             name : All Files
       created_at : 2014-04-10T06:38:50-07:00
       modified_at : 2014-04-14T12:27:36-07:00
-      trashed_at : null
-      purged_at : null
       content_created_at : 2014-01-28T12:20:39-08:00
       content_modified_at : 2014-03-13T08:46:14-07:00
       created_by :
         type : user
-        id : 214268589
+        id : "214268589"
         name : RAML QA
         login : ramlqa@mulesoft.com
       modified_by :
         type : user
-        id : 214268589
+        id : "214268589"
         name : RAML QA
         login : ramlqa@mulesoft.com
       owned_by :
         type : user
-        id : 214268589
+        id : "214268589"
         name : RAML QA
         login : ramlqa@mulesoft.com
-      shared_link : null
       parent :
         type : folder
-        id : 0
-        sequence_id : null
-        etag : null
+        id : "0"
         name : All Files
       item_status : active
   SearchResults:
@@ -1917,9 +1912,9 @@ types:
       total_count : 2
       entries :
         - type : file
-          id : 16098267691
-          sequence_id : 4
-          etag : 4
+          id : "16098267691"
+          sequence_id : "4"
+          etag : "4"
           sha1 : f9415a2fd622bfd93f88077e1e0fdb7c327516de
           name : sample.txt
           description :
@@ -1928,37 +1923,31 @@ types:
             total_count : 1
             entries :
               - type : folder
-                id : 0
-                sequence_id : null
+                id : "0"
                 etag : null
                 name : All Files
           created_at : 2014-04-10T06:38:50-07:00
           modified_at : 2014-04-14T12:27:36-07:00
-          trashed_at : null
-          purged_at : null
           content_created_at : 2014-01-28T12:20:39-08:00
           content_modified_at : 2014-03-13T08:46:14-07:00
           created_by :
             type : user
-            id : 214268589
+            id : "214268589"
             name : RAML QA
             login : ramlqa@mulesoft.com
           modified_by :
             type : user
-            id : 214268589
+            id : "214268589"
             name : RAML QA
             login : ramlqa@mulesoft.com
           owned_by :
             type : user
-            id : 214268589
+            id : "214268589"
             name : RAML QA
             login : ramlqa@mulesoft.com
-          shared_link : null
           parent :
             type : folder
-            id : 0
-            sequence_id : null
-            etag : null
+            id : "0"
             name : All Files
           item_status : active
       limit : 30
@@ -2094,9 +2083,9 @@ types:
       type?: string
     example:
       type: file
-      id: 5000948880
-      sequence_id: 3
-      etag: 3
+      id: "5000948880"
+      sequence_id: "3"
+      etag: "3"
       sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
       name: tigers.jpeg
       description: a picture of tigers
@@ -2105,14 +2094,14 @@ types:
         total_count: 2
         entries:
           - type: folder
-            id: 0
+            id: "0"
             sequence_id: null
             etag: null
             name: All Files
           - type: folder
-            id: 11446498
-            sequence_id: 1
-            etag: 1
+            id: "11446498"
+            sequence_id: "1"
+            etag: "1"
             name: Pictures
       created_at: 2012-12-12T10:55:30-08:00
       modified_at: 2012-12-12T11:04:26-08:00
@@ -2122,25 +2111,25 @@ types:
       content_modified_at: 2013-02-04T16:57:52-08:00
       created_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       modified_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       owned_by:
         type: user
-        id: 17738362
+        id: "17738362"
         name: sean rose
         login: sean@box.com
       shared_link: null
       parent:
         type: folder
-        id: 11446498
-        sequence_id: 1
-        etag: 1
+        id: "11446498"
+        sequence_id: "1"
+        etag: "1"
         name: Pictures
       item_status: active
   UploadFile-response:
@@ -2152,9 +2141,9 @@ types:
       total_count: 1
       entries:
         - type: file
-          id: 5000948880
-          sequence_id: 3
-          etag: 3
+          id: "5000948880"
+          sequence_id: "3"
+          etag: "3"
           sha1: 134b65991ed521fcfe4724b7d814ab8ded5185dc
           name: tigers.jpeg
           description: a picture of tigers
@@ -2163,14 +2152,14 @@ types:
             total_count: 2
             entries:
               - type: folder
-                id: 0
+                id: "0"
                 sequence_id: null
                 etag: null
                 name: All Files
               - type: folder
-                id: 11446498
-                sequence_id: 1
-                etag: 1
+                id: "11446498"
+                sequence_id: "1"
+                etag: "1"
                 name: Pictures
           created_at: 2012-12-12T10:55:30-08:00
           modified_at: 2012-12-12T11:04:26-08:00
@@ -2180,24 +2169,24 @@ types:
           content_modified_at: 2013-02-04T16:57:52-08:00
           created_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           modified_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           owned_by:
             type: user
-            id: 17738362
+            id: "17738362"
             name: sean rose
             login: sean@box.com
           shared_link: null
           parent:
             type: folder
-            id: 11446498
-            sequence_id: 1
-            etag: 1
+            id: "11446498"
+            sequence_id: "1"
+            etag: "1"
             name: Pictures
           item_status: active

@@ -4,11 +4,11 @@ version: 2.0
 baseUri: "https://upload.box.com/api/{version}"
 mediaType: application/json
 securitySchemes:
-  - oauth_2_0: !include securitySchemes/oauth_2_0.raml
+  oauth_2_0: !include securitySchemes/oauth_2_0.raml
 uses:
-  - types: !include types.raml
+  types: types.raml
 resourceTypes:
-  - standardResponse: !include resourceTypes/standardResponse.raml
+  standardResponse: !include resourceTypes/standardResponse.raml
 securedBy: [ oauth_2_0 ]
 /files:
   /content:

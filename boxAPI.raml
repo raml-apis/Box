@@ -4,17 +4,17 @@ version: 2.0
 baseUri: https://api.box.com/{version}/
 mediaType: application/json
 securitySchemes:
-  - oauth_2_0: !include securitySchemes/oauth_2_0.raml
+  oauth_2_0: !include securitySchemes/oauth_2_0.raml
 uses:
-  - types: !include types.raml
+  types: types.raml
 resourceTypes:
-  - standardResponse: !include resourceTypes/standardResponse.raml
-  - collection: !include resourceTypes/collection.raml
-  - collectionItem: !include resourceTypes/collectionItem.raml
+  standardResponse: !include resourceTypes/standardResponse.raml
+  collection: !include resourceTypes/collection.raml
+  collectionItem: !include resourceTypes/collectionItem.raml
 traits:
-  - fieldAware: !include traits/fieldAware.raml
-  - pageable: !include traits/pageable.raml
-  - notifiable: !include traits/notifiable.raml
+  fieldAware: !include traits/fieldAware.raml
+  pageable: !include traits/pageable.raml
+  notifiable: !include traits/notifiable.raml
 securedBy: [ oauth_2_0 ]
 /folders:
   type: { collection: { objectName: types.Folder } }
@@ -548,8 +548,8 @@ securedBy: [ oauth_2_0 ]
           The location in the event stream at which you want to start receiving
           events. Can specify special case _now_ to get 0 events and the lates
           stream position for initialization. A collection of events is returned.
-        default: 0
-        example: 0
+        default: "0"
+        example: "0"
       stream_type:
         description: Limits the type of events returned
         enum:
