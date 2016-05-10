@@ -1,11 +1,12 @@
+#%RAML 1.0 ResourceType
 type: standardResponse
-post: 
+post:
   description: Allows to create new <<objectName | !singularize>>
-  body: 
-    application/json: 
-      schema: New<<objectName | !singularize>>
-  responses: 
-    201: 
-      body: 
-        application/json: 
-          schema: <<objectName | !singularize>>
+  body:
+    application/json:
+      type: New<<objectName | !singularize>>
+  responses:
+    201:
+      body:
+        application/json:
+          type: <<objectName | !singularize>>

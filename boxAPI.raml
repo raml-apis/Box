@@ -28,7 +28,7 @@ securedBy: [ oauth_2_0 ]
           application/json:
             type: types.Folder
   /{folderId}:
-    type: { collectionItem: { item: Folder } }
+    type: { collectionItem: { item: types.Folder } }
     uriParameters:
       folderId:
         description: |
@@ -161,7 +161,7 @@ securedBy: [ oauth_2_0 ]
             application/json:
               type: types.ItemsCollection
 /files/{fileId}:
-  type: { collectionItem: { item: File } }
+  type: { collectionItem: { item: types.File } }
   uriParameters:
     fileId:
       description: "Box's unique string identifying this file."
